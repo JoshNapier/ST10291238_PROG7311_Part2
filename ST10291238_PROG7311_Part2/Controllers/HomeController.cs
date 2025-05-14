@@ -18,7 +18,27 @@ namespace ST10291238_PROG7311_Part2.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult AddProducts()
+        {
+            return View();
+        }
+
+        public IActionResult MyProducts()
+        {
+            return View();
+        }
+
+        public IActionResult AllProducts()
         {
             return View();
         }

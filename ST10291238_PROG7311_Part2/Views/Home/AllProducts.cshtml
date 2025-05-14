@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Product>
+
+<h2>All Farmers’ Products</h2>
+
+<form method="get">
+    <input name="category" placeholder="Category" />
+    <input name="startDate" type="date" />
+    <input name="endDate" type="date" />
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Production Date</th>
+        <th>Farmer Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Category</td>
+            <td>@item.ProductionDate.ToShortDateString()</td>
+            <td>@item.Farmer?.Name</td>
+        </tr>
+    }
+</table>

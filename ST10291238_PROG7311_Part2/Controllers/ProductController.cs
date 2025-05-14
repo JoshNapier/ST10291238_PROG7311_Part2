@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ST10291238_PROG7311_Part2.Controllers
 {
-    [Authorize(Roles = "Farmer")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly AppDBContext _context;
@@ -19,6 +19,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "Farmer")]
         public async Task<IActionResult> MyProducts()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -27,27 +28,47 @@ namespace ST10291238_PROG7311_Part2.Controllers
             return View(await products.ToListAsync());
         }
 
-        public IActionResult Create()
+        [Authorize(Roles = "Farmer")]
+        public IActionResult AddProduct()
         {
             return View();
         }
 
+        // Fix the issue by replacing 'farmer.Id' with 'farmer.FarmerId' in the AddProduct method.
+        // The Farmer class does not have a property named 'Id', but it does have 'FarmerId'.
+
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        [Authorize(Roles = "Farmer")]
+        public async Task<IActionResult> AddProduct(Product model)
         {
+            if (!ModelState.IsValid) return View(model);
+
             var user = await _userManager.GetUserAsync(User);
-            var farmer = await _context.Farmers.FirstOrDefaultAsync(f => f.Email == user.Email);
+            var farmer = await _context.Farmers.FirstOrDefaultAsync(f => f.FarmerId == int.Parse(user.Id));
 
-            if (ModelState.IsValid && farmer != null)
-            {
-                product.FarmerId = farmer.FarmerId;
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("MyProducts");
-            }
+            model.FarmerId = farmer.FarmerId;
+            _context.Products.Add(model);
+            await _context.SaveChangesAsync();
 
-            return View(product);
+            return RedirectToAction("MyProducts");
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Product product)
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    var farmer = await _context.Farmers.FirstOrDefaultAsync(f => f.Email == user.Email);
+
+        //    if (ModelState.IsValid && farmer != null)
+        //    {
+        //        product.FarmerId = farmer.FarmerId;
+        //        _context.Products.Add(product);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("MyProducts");
+        //    }
+
+        //    return View(product);
+        //}
 
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Filter(string category, DateTime? from, DateTime? to)

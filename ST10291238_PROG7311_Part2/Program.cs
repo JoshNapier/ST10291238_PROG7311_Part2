@@ -43,6 +43,7 @@ namespace ST10291238_PROG7311_Part2
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
