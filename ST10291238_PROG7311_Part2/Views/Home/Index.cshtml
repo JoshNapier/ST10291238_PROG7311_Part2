@@ -2,12 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="col-md-4">
-    @*Card menu item that allows users to be transferred to the Submit view*@
-    <div class="card">
-        <div class="card-body text-center">
-            <h5 class="card-title">Submit New Claim</h5>
-            <a asp-controller="Home" asp-action="Submit" class="btn btn-primary">Submit</a>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Register a New Account</h5>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Login to an Existing Account</h5>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-secondary">Login</a>
+            </div>
         </div>
     </div>
 </div>
+

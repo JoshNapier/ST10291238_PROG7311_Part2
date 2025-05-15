@@ -20,10 +20,9 @@ namespace ST10291238_PROG7311_Part2.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: /Account/Register
         public IActionResult Register()
         {
-            return View();
+            return View("~/Views/Home/Register.cshtml");
         }
 
         [HttpPost]
@@ -48,7 +47,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
                 await _userManager.AddToRoleAsync(user, model.Role);
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AddProducts", "Home");
             }
 
             foreach (var error in result.Errors)
@@ -59,8 +58,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
             return View(model);
         }
 
-        // GET: /Account/Login
-        public IActionResult Login() => View();
+        public IActionResult Login() => View("~/Views/Home/Login.cshtml");
 
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)

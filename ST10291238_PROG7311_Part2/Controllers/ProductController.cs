@@ -31,11 +31,9 @@ namespace ST10291238_PROG7311_Part2.Controllers
         [Authorize(Roles = "Farmer")]
         public IActionResult AddProduct()
         {
-            return View();
+            return View("~/Views/Home/AddProduct.cshtml");
         }
 
-        // Fix the issue by replacing 'farmer.Id' with 'farmer.FarmerId' in the AddProduct method.
-        // The Farmer class does not have a property named 'Id', but it does have 'FarmerId'.
 
         [HttpPost]
         [Authorize(Roles = "Farmer")]
