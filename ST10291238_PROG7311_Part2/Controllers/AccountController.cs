@@ -22,7 +22,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
 
         public IActionResult Register()
         {
-            return View("~/Views/Home/Register.cshtml");
+            return View();
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
                 await _userManager.AddToRoleAsync(user, model.Role);
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("AddProducts", "Home");
+                return RedirectToAction("AddProducts", "Product");
             }
 
             foreach (var error in result.Errors)
@@ -58,7 +58,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
             return View(model);
         }
 
-        public IActionResult Login() => View("~/Views/Home/Login.cshtml");
+        public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)

@@ -31,7 +31,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
         [Authorize(Roles = "Farmer")]
         public IActionResult AddProduct()
         {
-            return View("~/Views/Home/AddProduct.cshtml");
+            return View();
         }
 
 
@@ -51,23 +51,6 @@ namespace ST10291238_PROG7311_Part2.Controllers
             return RedirectToAction("MyProducts");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Product product)
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    var farmer = await _context.Farmers.FirstOrDefaultAsync(f => f.Email == user.Email);
-
-        //    if (ModelState.IsValid && farmer != null)
-        //    {
-        //        product.FarmerId = farmer.FarmerId;
-        //        _context.Products.Add(product);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction("MyProducts");
-        //    }
-
-        //    return View(product);
-        //}
-
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Filter(string category, DateTime? from, DateTime? to)
         {
@@ -82,7 +65,7 @@ namespace ST10291238_PROG7311_Part2.Controllers
             if (to.HasValue)
                 query = query.Where(p => p.ProductionDate <= to.Value);
 
-            return View("FilteredResults", await query.ToListAsync());
+            return View("AllProducts", await query.ToListAsync());
         }
     }
 
